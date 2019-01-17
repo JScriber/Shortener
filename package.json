@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "serve": "babel-node ./app/app.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.9",
+    "supertest": "^3.4.0"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "http-status-codes": "^1.3.0",
+    "lowdb": "^1.0.0",
+    "pg": "^7.8.0"
+  }
+}
