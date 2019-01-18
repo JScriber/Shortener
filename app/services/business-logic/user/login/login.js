@@ -4,9 +4,7 @@ import HTTPStatus from 'http-status-codes';
 
 import User from '../../../database/user.database';
 import { environment } from '../../../../../environment';
-
-/** Check if the given credentials are valid. */
-const checkCredentials = (name, password) => name && password && name.length > 0 && password.length > 0;
+import { checkCredentials } from '../utils/utils';
 
 /**
  * Generates a token.
@@ -14,8 +12,8 @@ const checkCredentials = (name, password) => name && password && name.length > 0
  * @param {*} password 
  * @param {*} salt
  */
-const genToken = (id, name) => jwt.sign(
-  { id, name },
+const genToken = (id, name, salt) => jwt.sign(
+  { id, name, salt },
   environment.security.privateKey,
   { expiresIn: environment.security.expiration }
 );
@@ -36,7 +34,7 @@ export const login = async ({ body: { name, password }}, res, next) => {
 
       if (hash === user.password) {
         // Generate a new token.
-        const token = genToken(user.id, name);
+        const token = genToken(user.id, name, user.salt);
 
         try {
           // Assign the new token and return it.

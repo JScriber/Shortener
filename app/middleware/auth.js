@@ -8,7 +8,7 @@ export const authentification = whitelist => {
     const token = req.headers['authorization'];
   
     if (whitelist.find(e => e.method === req.method && e.path === req.path)) {
-      console.log(`[AUTH] - ${req.path} - is whitelisted.`);
+      console.log(`[AUTH] - ${req.path} is whitelisted.`);
       next();
     } else {
       if (token) {
