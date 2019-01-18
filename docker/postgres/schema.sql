@@ -5,7 +5,7 @@ CREATE TABLE public.link(
 	hash varchar(255),
 	url varchar(255),
 	created_at date,
-	id_user integer,
+	id_s_user integer,
 	CONSTRAINT link_id PRIMARY KEY (id)
 
 );
@@ -13,24 +13,24 @@ CREATE TABLE public.link(
 ALTER TABLE public.link OWNER TO postgres;
 -- ddl-end --
 
-DROP TABLE IF EXISTS public."user" CASCADE;
-CREATE TABLE public."user"(
+DROP TABLE IF EXISTS public."s_user" CASCADE;
+CREATE TABLE public."s_user"(
 	id serial NOT NULL,
 	name varchar(255),
-	password varchar(255),
-	salt varchar(255),
-	token varchar(255),
-	CONSTRAINT user_id PRIMARY KEY (id)
-
+	password text,
+	salt text,
+	token text,
+	CONSTRAINT s_user_id PRIMARY KEY (id),
+	UNIQUE(name)
 );
 -- ddl-end --
-ALTER TABLE public."user" OWNER TO postgres;
+ALTER TABLE public."s_user" OWNER TO postgres;
 -- ddl-end --
 
--- object: user_fk | type: CONSTRAINT --
--- ALTER TABLE public.link DROP CONSTRAINT IF EXISTS user_fk CASCADE;
-ALTER TABLE public.link ADD CONSTRAINT user_fk FOREIGN KEY (id_user)
-REFERENCES public."user" (id) MATCH FULL
+-- object: s_user_fk | type: CONSTRAINT --
+-- ALTER TABLE public.link DROP CONSTRAINT IF EXISTS s_user_fk CASCADE;
+ALTER TABLE public.link ADD CONSTRAINT s_user_fk FOREIGN KEY (id_s_user)
+REFERENCES public."s_user" (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
