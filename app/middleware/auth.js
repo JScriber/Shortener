@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import HTTPStatus from 'http-status-codes';
 
 import { environment } from '../../environment';
 
@@ -15,13 +16,12 @@ export const authentification = whitelist => {
         try {
           const decoded = await jwt.verify(token, environment.security.privateKey);
           req.user = decoded;
+          next();
         } catch (e) {
-          res.json({ message: 'Fail to authentificate.'});
+          res.status(HTTPStatus.UNAUTHORIZED).send({ message: 'Fail to authentificate.'});
         }
-    
-        next();
       } else {
-        return res.status(403).send({ 
+        return res.status(HTTPStatus.UNAUTHORIZED).send({ 
           message: 'Missing token.' 
         });
       }

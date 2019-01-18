@@ -19,14 +19,34 @@ docker exec -it shortener psql -U postgres
 
 Now you should be inside Postgres' CLI. You can now set the structure of the database by pasting:
 ```SQL
+DROP TABLE IF EXISTS public.link CASCADE;
 CREATE TABLE public.link(
-	hash varchar(255) NOT NULL,
+	id serial NOT NULL,
+	hash varchar(255),
 	url varchar(255),
-	visits smallint,
-	CONSTRAINT hash PRIMARY KEY (hash)
-);
+	visits integer,
+	created_at date,
+	id_s_user integer,
+	CONSTRAINT link_id PRIMARY KEY (id)
 
+);
 ALTER TABLE public.link OWNER TO postgres;
+
+DROP TABLE IF EXISTS public."s_user" CASCADE;
+CREATE TABLE public."s_user"(
+	id serial NOT NULL,
+	name varchar(255),
+	password text,
+	salt text,
+	token text,
+	CONSTRAINT s_user_id PRIMARY KEY (id),
+	UNIQUE(name)
+);
+ALTER TABLE public."s_user" OWNER TO postgres;
+
+ALTER TABLE public.link ADD CONSTRAINT s_user_fk FOREIGN KEY (id_s_user)
+REFERENCES public."s_user" (id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
 ```
 
 ## Delete the container
@@ -50,11 +70,11 @@ npm run test
 # Gist of the project
 This API works as [Google Shortener](https://goo.gl/). That's to say you can convert a long URL into a short unreadable URL. Also, you can know how many people clicked on your link.
 
-## Commands associate to a user
+## User creation
 ### Create a user
-
 In order to create a user, you have to pass two elements to the API. A name and a password.
 This can be done by requesting :
+
 ```
 POST: http://127.0.0.1:8000/user/
 ```
@@ -67,21 +87,16 @@ With a body structured like this:
 }
 ```
 
-As a response you should get:
-```JSON
-"http://127.0.0.1:8000/l/HASH"
-```
-
 ### Login
 
-In order to login a user, you have to pass two elements to the API. The name and the password.
+In order to login in, you have to pass two elements to the API. The name and the password.
 This can be done by requesting :
 
 ```
 GET: http://127.0.0.1:8000/user/login
 ```
 
-With a body structured like this:
+Body:
 ```JSON
 {
   "name": "My name",
@@ -89,25 +104,42 @@ With a body structured like this:
 }
 ```
 
-As a response you should get :
-```
-"http://127.0.0.1:8000/l/HASH"
-```
+As a response you should get a **token**, used later to access secured routes.
 
 ### Delete a user
 
 The API also allows you to delete a user.
-To do so:
 ```
-DELETE: http://127.0.0.1:8000/user/delete/:id
+DELETE: http://127.0.0.1:8000/user/:id
 ```
 
-With a header structured like this:
+With the header:
 ```JSON
-
-  "Authorization": TOKEN
-
+"Authorization": "TOKEN"
 ```
+where the token is the token retrieved during login.
+
+### Update the user
+You can modify the informations of the user.
+```
+PUT: http://127.0.0.1:8000/user
+```
+Body:
+```JSON
+{
+  "name": "new name",
+  "password": "new password"
+}
+```
+> Don't forget the authorization header.
+
+### Informations on current user
+It's possible to get informations on the current user.
+To do so, request:
+```
+GET: http://127.0.0.1:8000/user/current
+```
+> Don't forget the authorization header.
 
 ## Commands associate to a link
 ### Create a URL
@@ -115,7 +147,7 @@ With a header structured like this:
 In order to create your link, you have to pass two elements to the API. A URL and a name.
 This can be done by requesting:
 ```
-POST: http://127.0.0.1:8000/link/create
+POST: http://127.0.0.1:8000/link/
 ```
 
 With a body structured like this:
@@ -127,7 +159,7 @@ With a body structured like this:
 
 As a response you should get:
 ```JSON
-"http://127.0.0.1:8000/l/HASH"
+"http://127.0.0.1:8000/link/HASH"
 ```
 
 ### Access the URL
@@ -138,14 +170,14 @@ A GET method will have to be used.
 It's possible to retrieve all the URL generated.
 To do so, you simply have to call:
 ```
-GET: http://127.0.0.1:8000/link/list
+GET: http://127.0.0.1:8000/link
 ```
 
 You should get an array of objects looking like:
 ```JSON
 [
   {
-    "short": "http://127.0.0.1:8000/l/HASH",
+    "short": "http://127.0.0.1:8000/link/HASH",
     "url": "http://my-url.com",
     "visits": 51
   }
@@ -156,7 +188,7 @@ Where `short` is the unreadable URL, `url` is the original link, and `visits` th
 #### Options
 Optionally you can pass a `name` parameter to the request. Thus, requesting the following address will give you all the links where the given name can be found in the original url.
 ```
-GET: http://127.0.0.1:8000/link/list?name=my
+GET: http://127.0.0.1:8000/link/?name=my
 ```
 > Warning! The given pattern is case sensitive.
 
@@ -164,6 +196,6 @@ GET: http://127.0.0.1:8000/link/list?name=my
 The API also allows you to delete the generated URL.
 To do so:
 ```
-DELETE: http://127.0.0.1:8000/link/delete/HASH
+DELETE: http://127.0.0.1:8000/link/HASH
 ```
 
