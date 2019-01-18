@@ -66,4 +66,25 @@ describe('users', async () => {
 
   })
   
+  // yannoel_subprime
+
+  test('GET /login', done => {
+
+    // creation de l'utilisateur
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe);
+
+    // login de l'utilisateur
+    let token = request(server).get('/login')
+      .send(johnDoe)
+      .value();
+
+    // information de l'utilisateur
+    supertest(app).delete('/current')
+      .expect(johnDoe)
+      .end(done);
+
+  });
+  
 });
