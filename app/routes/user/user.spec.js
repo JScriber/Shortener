@@ -68,9 +68,31 @@ describe('users', async () => {
 
   })
   
+  // yannoel_prime
+
+  test('DELETE /:id unknown id', done => {
+
+    // creation de l'utilisateur
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe);
+
+    // login de l'utilisateur
+    request(server).get('/login')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe)
+      .value();
+
+    // appel à la route
+    supertest(app)
+      .delete('/amazing_token')
+      .expect(204, {})
+      .end(done)
+  })
+  
   // yannoel_subprime
 
-  test('GET /login', done => {
+  test('GET /current', done => {
 
     // creation de l'utilisateur
     request(server).post('/user')
