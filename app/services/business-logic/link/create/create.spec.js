@@ -1,10 +1,10 @@
-import { shortURL, generateHash } from './create';
-import { errors } from '../../../../errors';
+import { fullURL, generateHash } from './create';
+import { errors } from '../../../../../errors';
 import { rejects } from 'assert';
 
 describe('Create service.', () => {
   it('should return an URL.', () => {
-    const response = shortURL('test');
+    const response = fullURL('test');
 
     expect(response).toBeDefined();
   });
