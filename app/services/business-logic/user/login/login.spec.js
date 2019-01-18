@@ -1,5 +1,5 @@
 
-import { getToken, login } from "./login"
+import { getToken, z } from "./login"
 
 describe('Encrypt service. ', () => {
     it("should return something that I don't know", async () => {

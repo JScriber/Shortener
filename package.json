@@ -1,7 +1,7 @@
 {
   "scripts": {
     "serve": "babel-node ./app/app.js",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
