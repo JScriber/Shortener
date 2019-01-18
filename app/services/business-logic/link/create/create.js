@@ -4,7 +4,7 @@ import os from 'os';
 import Link from '../../../database/link.database';
 import { environment } from '../../../../../environment';
 import { errors } from '../../../../../errors';
-import server from '../../../../app';
+// import server from '../../../../app';
 
 /**
  * Generates a hash with the url and persist it.
