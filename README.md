@@ -50,12 +50,72 @@ npm run test
 # Gist of the project
 This API works as [Google Shortener](https://goo.gl/). That's to say you can convert a long URL into a short unreadable URL. Also, you can know how many people clicked on your link.
 
-## Create a URL
+## Commands associate to a user
+### Create a user
+
+In order to create a user, you have to pass two elements to the API. A name and a password.
+This can be done by requesting :
+```
+POST: http://127.0.0.1:8000/user/
+```
+
+With a body structured like this:
+```JSON
+{
+  "name": "My name",
+  "password": "P@ssword"
+}
+```
+
+As a response you should get:
+```JSON
+"http://127.0.0.1:8000/l/HASH"
+```
+
+### Login
+
+In order to login a user, you have to pass two elements to the API. The name and the password.
+This can be done by requesting :
+
+```
+GET: http://127.0.0.1:8000/user/login
+```
+
+With a body structured like this:
+```JSON
+{
+  "name": "My name",
+  "password": "P@ssword"
+}
+```
+
+As a response you should get :
+```
+"http://127.0.0.1:8000/l/HASH"
+```
+
+### Delete a user
+
+The API also allows you to delete a user.
+To do so:
+```
+DELETE: http://127.0.0.1:8000/user/delete/:id
+```
+
+With a header structured like this:
+```JSON
+
+  "Authorization": TOKEN
+
+```
+
+## Commands associate to a link
+### Create a URL
 
 In order to create your link, you have to pass two elements to the API. A URL and a name.
 This can be done by requesting:
 ```
-POST: http://127.0.0.1:8000/create
+POST: http://127.0.0.1:8000/link/create
 ```
 
 With a body structured like this:
@@ -70,15 +130,15 @@ As a response you should get:
 "http://127.0.0.1:8000/l/HASH"
 ```
 
-## Access the URL
+### Access the URL
 You can simply access the URL by visiting the link returned by the previous request.
 A GET method will have to be used.
 
-## List all URL
+### List all URL
 It's possible to retrieve all the URL generated.
 To do so, you simply have to call:
 ```
-GET: http://127.0.0.1:8000/list
+GET: http://127.0.0.1:8000/link/list
 ```
 
 You should get an array of objects looking like:
@@ -93,17 +153,17 @@ You should get an array of objects looking like:
 ```
 Where `short` is the unreadable URL, `url` is the original link, and `visits` the number of times the link has been visited.
 
-### Options
+#### Options
 Optionally you can pass a `name` parameter to the request. Thus, requesting the following address will give you all the links where the given name can be found in the original url.
 ```
-GET: http://127.0.0.1:8000/list?name=my
+GET: http://127.0.0.1:8000/link/list?name=my
 ```
 > Warning! The given pattern is case sensitive.
 
-## Delete a URL
+### Delete a URL
 The API also allows you to delete the generated URL.
 To do so:
 ```
-DELETE: http://127.0.0.1:8000/delete/HASH
+DELETE: http://127.0.0.1:8000/link/delete/HASH
 ```
 

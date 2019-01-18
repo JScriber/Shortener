@@ -12,7 +12,7 @@ import { checkCredentials } from '../utils/utils';
  * @param {*} password 
  * @param {*} salt
  */
-const genToken = (id, name, salt) => jwt.sign(
+export const genToken = (id, name, salt) => jwt.sign(
   { id, name, salt },
   environment.security.privateKey,
   { expiresIn: environment.security.expiration }
