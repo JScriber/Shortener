@@ -37,11 +37,46 @@ describe('users', async () => {
   });
 
 
-  test('GET /login', done => {
+  test('GET /user/login', done => {
 
-    request(server).get('/login')
+    request(server).get('/user/login')
       .send(johnDoe)
-      .expect()
+      .expect(200)
   });
-  
+
+  test('PUT /user', done => {
+
+    // First credentials.
+    const firstCredentials = {
+      name: 'Testeur',
+      password: 'first'
+    };
+
+    // Credentials updated.
+    const updateCredentials = {
+      name: 'Testeur',
+      password: 'second'
+    }
+
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(firstCredentials)
+      .expect(201)
+      .end(() => {
+        // Get the token.
+        request(server).get('/user/login')
+          .set('Content-Type', 'application/json')
+          .send(firstCredentials)
+          .expect(200)
+          .end((_, { body }) => {
+            // Update the credentials.
+            request(server).put('/user')
+              .set('Content-Type', 'application/json')
+              .set('Authorization', body)
+              .send(updateCredentials)
+              .expect(200)
+              .end(done);
+          });
+      });
+  });
 });
