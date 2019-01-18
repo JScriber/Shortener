@@ -8,6 +8,11 @@ describe('users', async () => {
   const client = new Client(SERVER);
   await client.connect();
 
+  const johnDoe = {
+    name: 'John De',
+    password: 'Secure password'
+  };
+
   /** Closes the server. */
   afterAll(closeServer);
 
@@ -16,11 +21,6 @@ describe('users', async () => {
   });
 
   test('POST /user', done => {
-    const johnDoe = {
-      name: 'John De',
-      password: 'Secure password'
-    };
-
     // First try.
     request(server).post('/user')
       .set('Content-Type', 'application/json')
@@ -36,5 +36,12 @@ describe('users', async () => {
       .end(done);
   });
 
+
+  test('GET /login', done => {
+
+    request(server).get('/login')
+      .send(johnDoe)
+      .expect()
+  });
   
 });
