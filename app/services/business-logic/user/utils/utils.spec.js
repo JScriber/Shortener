@@ -2,73 +2,72 @@ import { checkCredentials } from './utils'
 
 describe('checkcredentials device. ', () => {
     // no parameters
-    it("should return false", async () => {
+    it('no parameters should return false', async () => {
         const response = await checkCredentials();
 
         expect(response).toBeFalsy();
     })
 
-    // one parameter : NULL, ==0, >0
-    it("should return false", async () => {
+    // one parameter
+    it('one parameter "NULL" should return false', async () => {
         const response = await checkCredentials(null);
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("");
+    it('one string parameter empty should return false', async () => {
+        const response = await checkCredentials('');
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur");
+    it('one string parameter should return false', async () => {
+        const response = await checkCredentials('Utilisateur');
 
         expect(response).toBeFalsy();
     })
 
-    // two parameters : NULL/NULL, NULL/==0, NULL/>0,
-    // ==0/NULL, ==0/==0, ==0/>0, >0/NULL, >0/==0, >0/>0
-    it("should return false", async () => {
+    // two parameters
+    it('two parameters "NULL" should return false', async () => {
         const response = await checkCredentials(null, null);
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials(null, "");
+    it('one parameter "NULL" and one string parameter empty should return false', async () => {
+        const response = await checkCredentials(null, '');
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials(null, "P@ssword");
+    it('one string parameter and one parameter "NULL" should return false', async () => {
+        const response = await checkCredentials(null, 'P@ssword');
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("", null);
+    it('one parameter "NULL" and one string parameter empty should return false', async () => {
+        const response = await checkCredentials('', null);
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("", "");
+    it('two string parameter empty should return false', async () => {
+        const response = await checkCredentials('', '');
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("", "P@ssword");
+    it('one string parameter and one string parameter empty should return false', async () => {
+        const response = await checkCredentials('', 'P@ssword');
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur", null);
+    it('one string parameter and one parameter "NULL" should return false', async () => {
+        const response = await checkCredentials('Utilisateur', null);
 
         expect(response).toBeFalsy();
     })
-    it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur", "");
+    it('one string parameter and one string parameter empty should return false', async () => {
+        const response = await checkCredentials('Utilisateur', '');
 
         expect(response).toBeFalsy();
     })
-    it("should return true", async () => {
-        const response = await checkCredentials("Utilisateur", "P@ssword");
+    it('two string parameters should return true', async () => {
+        const response = await checkCredentials('Utilisateur', 'P@ssword');
 
         expect(response).not.toBeFalsy();
     })
