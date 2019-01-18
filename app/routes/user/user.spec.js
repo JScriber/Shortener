@@ -44,4 +44,26 @@ describe('users', async () => {
       .expect()
   });
   
+  // yannoel
+
+  test('DELETE /:id', done => {
+
+    // creation de l'utilisateur
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe);
+
+    // login de l'utilisateur
+    let token = request(server).get('/login')
+      .send(johnDoe)
+      .value();
+
+    // suppression de l'utilisateur
+    supertest(app).delete('/:' + token)
+      .set('Authorization', token)
+      .expect(204, {})
+      .end(done);
+
+  })
+  
 });
