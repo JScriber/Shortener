@@ -55,7 +55,7 @@ This API works as [Google Shortener](https://goo.gl/). That's to say you can con
 In order to create your link, you have to pass two elements to the API. A URL and a name.
 This can be done by requesting:
 ```
-POST: http://127.0.0.1:8000/create
+POST: http://127.0.0.1:8000/link
 ```
 
 With a body structured like this:
@@ -67,7 +67,7 @@ With a body structured like this:
 
 As a response you should get:
 ```JSON
-"http://127.0.0.1:8000/l/HASH"
+"http://127.0.0.1:8000/link2/HASH"
 ```
 
 ## Access the URL
@@ -78,14 +78,14 @@ A GET method will have to be used.
 It's possible to retrieve all the URL generated.
 To do so, you simply have to call:
 ```
-GET: http://127.0.0.1:8000/list
+GET: http://127.0.0.1:8000/link
 ```
 
 You should get an array of objects looking like:
 ```JSON
 [
   {
-    "short": "http://127.0.0.1:8000/l/HASH",
+    "short": "http://127.0.0.1:8000/link/HASH",
     "url": "http://my-url.com",
     "visits": 51
   }
@@ -96,7 +96,7 @@ Where `short` is the unreadable URL, `url` is the original link, and `visits` th
 ### Options
 Optionally you can pass a `name` parameter to the request. Thus, requesting the following address will give you all the links where the given name can be found in the original url.
 ```
-GET: http://127.0.0.1:8000/list?name=my
+GET: http://127.0.0.1:8000/link?name=my
 ```
 > Warning! The given pattern is case sensitive.
 
@@ -104,6 +104,6 @@ GET: http://127.0.0.1:8000/list?name=my
 The API also allows you to delete the generated URL.
 To do so:
 ```
-DELETE: http://127.0.0.1:8000/delete/HASH
+DELETE: http://127.0.0.1:8000/link/HASH
 ```
 
