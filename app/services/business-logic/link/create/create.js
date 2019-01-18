@@ -4,6 +4,7 @@ import os from 'os';
 import Link from '../../../database/link.database';
 import { environment } from '../../../../../environment';
 import { errors } from '../../../../../errors';
+import server from '../../../../app';
 
 /**
  * Generates a hash with the url and persist it.
@@ -46,7 +47,10 @@ export const generate = async url => {
  */
 export const fullURL = hash => {
   // TODO: Improve for real usage on prod server.
-  const ip = os.networkInterfaces()['lo'][0].address || 'localhost';
+
+  let os = require( 'os' );
+  let networkInterfaces = os.networkInterfaces( );
+  const ip = networkInterfaces['Wi-Fi'][1]['address'];
 
   // TODO: CHange.
   return `http://${ip}:${environment.port}/link/${hash}`;
