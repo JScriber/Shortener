@@ -15,12 +15,12 @@ describe('checkcredentials device. ', () => {
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("");
+        const response = await checkCredentials('');
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur");
+        const response = await checkCredentials('Utilisateur');
 
         expect(response).toBeFalsy();
     })
@@ -33,42 +33,42 @@ describe('checkcredentials device. ', () => {
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials(null, "");
+        const response = await checkCredentials(null, '');
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials(null, "P@ssword");
+        const response = await checkCredentials(null, 'P@ssword');
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("", null);
+        const response = await checkCredentials('', null);
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("", "");
+        const response = await checkCredentials('', '');
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("", "P@ssword");
+        const response = await checkCredentials('', 'P@ssword');
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur", null);
+        const response = await checkCredentials('Utilisateur', null);
 
         expect(response).toBeFalsy();
     })
     it("should return false", async () => {
-        const response = await checkCredentials("Utilisateur", "");
+        const response = await checkCredentials('Utilisateur', '');
 
         expect(response).toBeFalsy();
     })
     it("should return true", async () => {
-        const response = await checkCredentials("Utilisateur", "P@ssword");
+        const response = await checkCredentials('Utilisateur', 'P@ssword');
 
         expect(response).not.toBeFalsy();
     })
