@@ -1,6 +1,6 @@
-import Link from '../../database/link.database';
+import Link from '../../../database/link.database';
 
-export const deleteLink = async hash => {
+export const remove = async hash => {
   // Get the instance of the service.
   const service = await new Link().connect();
 

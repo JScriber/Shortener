@@ -100,3 +100,10 @@ GET: http://127.0.0.1:8000/list?name=my
 ```
 > Warning! The given pattern is case sensitive.
 
+## Delete a URL
+The API also allows you to delete the generated URL.
+To do so:
+```
+DELETE: http://127.0.0.1:8000/delete/HASH
+```
+

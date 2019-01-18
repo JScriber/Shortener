@@ -5,10 +5,8 @@ import HTTPStatus from 'http-status-codes';
 import { environment } from '../environment';
 
 // All routes.
-import accessRoute from './routes/access.route';
-import createRoute from './routes/create.route';
-import deleteRoute from './routes/delete.route';
-import listingRoute from './routes/listing.route';
+import linkRoute from './routes/link/link.route';
+import userRoute from './routes/user/user.route';
 
 // Server instance.
 const server = express();
@@ -20,10 +18,8 @@ server.use(express.json());
 server.use((err, req, res, next) => res.sendStatus(HTTPStatus.INTERNAL_SERVER_ERROR).json(err));
 
 // Route definition.
-server.use('/l', accessRoute);
-server.use('/create', createRoute);
-server.use('/delete', deleteRoute);
-server.use('/list', listingRoute);
+server.use('/link', linkRoute);
+server.use('/user', userRoute);
 
 const initialized = () => console.log(`Server initialized on port ${environment.port}`);
 const listener = server.listen(environment.port, initialized);

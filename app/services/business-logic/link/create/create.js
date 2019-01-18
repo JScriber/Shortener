@@ -1,16 +1,16 @@
 import crypto from 'crypto';
 import os from 'os';
 
-import Link from '../../database/link.database';
-import { environment } from '../../../../environment';
-import { errors } from '../../../../errors';
+import Link from '../../../database/link.database';
+import { environment } from '../../../../../environment';
+import { errors } from '../../../../../errors';
 
 /**
  * Generates a hash with the url and persist it.
  * @param {*} url
  * @return hash
  */
-export const generateHash = async url => {
+export const generate = async url => {
   // Service to manipulate links in database.
   const service = await new Link().connect();
 
@@ -44,9 +44,10 @@ export const generateHash = async url => {
  * @param {*} hash
  * @returns address to visit.
  */
-export const shortURL = hash => {
+export const fullURL = hash => {
   // TODO: Improve for real usage on prod server.
   const ip = os.networkInterfaces()['lo'][0].address || 'localhost';
 
-  return `http://${ip}:${environment.port}/l/${hash}`;
+  // TODO: CHange.
+  return `http://${ip}:${environment.port}/link/${hash}`;
 }
