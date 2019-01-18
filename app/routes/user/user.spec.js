@@ -38,10 +38,21 @@ describe('users', async () => {
 
 
   test('GET /user/login', done => {
+    // Create the user.
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe)
+      .expect(201);
 
-    request(server).get('/user/login')
+    // Login with this user.
+    request(server).get('/login')
+      .set('Content-Type', 'application/json')
       .send(johnDoe)
       .expect(200)
+      .expect(({ body }) => {
+        expect(body).toBeDefined();
+        expect(typeof body).toEqual(String);
+      });
   });
 
   test('PUT /user', done => {
@@ -78,5 +89,26 @@ describe('users', async () => {
               .end(done);
           });
       });
+  });
+  
+  test('DELETE /:id', done => {
+
+    // creation de l'utilisateur
+    request(server).post('/user')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe);
+
+    // login de l'utilisateur
+    const token = request(server).get('/login')
+      .set('Content-Type', 'application/json')
+      .send(johnDoe)
+      .value();
+
+    // suppression de l'utilisateur
+    supertest(app).delete('/:' + token)
+      .set('Content-Type', 'application/json')
+      .set('Authorization', token)
+      .expect(204, {})
+      .end(done);
   });
 });
