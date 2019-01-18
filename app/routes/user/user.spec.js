@@ -55,11 +55,13 @@ describe('users', async () => {
 
     // login de l'utilisateur
     let token = request(server).get('/login')
+      .set('Content-Type', 'application/json')
       .send(johnDoe)
       .value();
 
     // suppression de l'utilisateur
     supertest(app).delete('/:' + token)
+      .set('Content-Type', 'application/json')
       .set('Authorization', token)
       .expect(204, {})
       .end(done);
@@ -77,11 +79,13 @@ describe('users', async () => {
 
     // login de l'utilisateur
     let token = request(server).get('/login')
+      .set('Content-Type', 'application/json')
       .send(johnDoe)
       .value();
 
     // information de l'utilisateur
     supertest(app).delete('/current')
+      .set('Content-Type', 'application/json')
       .expect(johnDoe)
       .end(done);
 
