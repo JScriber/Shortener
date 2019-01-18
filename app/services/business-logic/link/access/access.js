@@ -1,21 +1,27 @@
+import HTTPStatus from 'http-status-codes';
+
 import Link from '../../../database/link.database';
 
-/**
- * Returns the corresponding url of the hash.
- * @param {*} hash
- * @returns url or never (may raise an exception)
- */
-export const access = async hash => {
-  if (!hash) return;
+export const access = async (req, res, next) => {
+  const hash = req.params.hash;
 
-  // Get the instance fo the service.
-  const service = await new Link().connect();
+  if (hash) {
+    try {
+      // Get the instance fo the service.
+      const database = await new Link().connect();
 
-  // Url of the link we want to access.
-  const url = await service.get(hash);
+      // Url of the link we want to access.
+      const url = await database.get(hash);
 
-  // Mark the link as visited.
-  await service.visit(url);
-
-  return url;
-};
+      // Mark the link as visited.
+      await database.visit(url);
+  
+      url ? res.redirect(url)
+          : res.sendStatus(HTTPStatus.NOT_FOUND);
+    } catch (e) {
+      next(e);
+    }
+  } else {
+    res.sendStatus(HTTPStatus.BAD_REQUEST);
+  }
+}

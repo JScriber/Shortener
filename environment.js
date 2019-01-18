@@ -1,8 +1,9 @@
 /** Default dev environment. */
 export const environment = {
+  ip: '127.0.0.1',
   port: 8000,
   database: {
-    domain: 'localhost',
+    domain: '127.0.0.1',
     port: 5432,
     user: 'postgres',
     password: 'pass',
