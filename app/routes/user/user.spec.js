@@ -5,6 +5,8 @@ import server, { closeServer } from '../../app';
 import { SERVER } from '../../services/database/access-address';
 
 describe('users', async () => {
+  // TODO: Mock the singleton.
+
   const client = new Client(SERVER);
   await client.connect();
 
@@ -36,7 +38,6 @@ describe('users', async () => {
       .end(done);
   });
 
-
   test('GET /user/login', done => {
     // Create the user.
     request(server).post('/user')
@@ -56,7 +57,6 @@ describe('users', async () => {
   });
 
   test('PUT /user', done => {
-
     // First credentials.
     const firstCredentials = {
       name: 'Testeur',
@@ -92,23 +92,32 @@ describe('users', async () => {
   });
   
   test('DELETE /:id', done => {
-
     // creation de l'utilisateur
     request(server).post('/user')
       .set('Content-Type', 'application/json')
-      .send(johnDoe);
+      .send(johnDoe)
+      .expect(201);
 
     // login de l'utilisateur
-    const token = request(server).get('/login')
+    request(server).get('/login')
       .set('Content-Type', 'application/json')
       .send(johnDoe)
-      .value();
+      .end((err, { body }) => {
+        // suppression de l'utilisateur
+        request(app).delete('/:' + token)
+          .set('Content-Type', 'application/json')
+          .set('Authorization', body)
+          .expect(204, {})
+          .end(done);
+      });
+  });
 
-    // suppression de l'utilisateur
-    supertest(app).delete('/:' + token)
-      .set('Content-Type', 'application/json')
-      .set('Authorization', token)
-      .expect(204, {})
-      .end(done);
+  test('DELETE /:id unknown id', done => {
+
+    request(app)
+      .delete('/user')
+      .set('Authorization', 'invalid')
+      .expect(401)
+      .end(done)
   });
 });
