@@ -1,6 +1,7 @@
 import express from 'express';
 import HTTPStatus from 'http-status-codes';
 
+// Environment variables.
 import { environment } from '../environment';
 
 // All routes.
@@ -24,4 +25,9 @@ server.use('/create', createRoute);
 server.use('/delete', deleteRoute);
 server.use('/list', listingRoute);
 
-server.listen(environment.port, () => console.log(`Server launched on port ${environment.port}`));
+const initialized = () => console.log(`Server initialized on port ${environment.port}`);
+const listener = server.listen(environment.port, initialized);
+
+// Exports.
+export default server;
+export const closeServer = listener.close;

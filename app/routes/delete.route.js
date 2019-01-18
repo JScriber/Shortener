@@ -3,6 +3,7 @@ import HTTPStatus from 'http-status-codes';
 
 import { deleteLink } from '../services/business-logic/delete/delete';
 
+/** Delete a link. */
 const deleteRoute = express.Router();
 
 deleteRoute.delete('/:hash', async ({ params }, res, next) => {

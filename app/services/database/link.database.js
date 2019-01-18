@@ -1,5 +1,8 @@
 import Database from './database';
 
+/**
+ * Class which modifies entities in the link table.
+ */
 class Link extends Database {
 
   constructor() {
@@ -37,11 +40,8 @@ class Link extends Database {
     }
   }
 
-  /**
-   * Returns all the entries.
-   * @param {*} filter
-   */
-  async getAll(filter) {
+  /** Returns all the entries. */
+  async getAll() {
     const query = `SELECT * FROM ${this._table} ORDER BY visits DESC`;
     const { rows } = await this._query(query);
 

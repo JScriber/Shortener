@@ -1,14 +1,14 @@
 import express from 'express';
-import HTTPStatus from 'http-status-codes';
 import { listing } from '../services/business-logic/list/list';
 
 /** Short link access. */
 const listingRoute = express.Router();
 
-listingRoute.get('/', async (req, res, next) => {
+listingRoute.get('/', async ({ query }, res, next) => {
+  const { name } = query;
 
   try {
-    const rows = await listing();
+    const rows = await listing(name);
     res.send(rows);
   } catch (e) {
     next(e);
