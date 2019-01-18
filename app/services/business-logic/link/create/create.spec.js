@@ -12,6 +12,6 @@ describe('Create service.', () => {
   it('should refuse the URL.', async () => {
     let response;
 
-    await expect(generateHash('googlecom')).rejects.toThrow();
+    await expect(generateHash('http://google.com')).rejects.toThrow();
   });
 });
