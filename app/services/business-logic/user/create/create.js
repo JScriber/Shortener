@@ -3,9 +3,7 @@ import HTTPStatus from 'http-status-codes';
 
 import User from '../../../database/user.database';
 import { environment } from '../../../../../environment';
-
-/** Check if the given credentials are valid. */
-const checkCredentials = (name, password) => name && password && name.length > 0 && password.length > 0;
+import { checkCredentials } from '../utils/utils';
 
 /**
  * Encrypts the given password.

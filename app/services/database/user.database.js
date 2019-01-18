@@ -24,6 +24,20 @@ class User extends Database {
   }
 
   /**
+   * Updates the user.
+   * @param {*} id 
+   * @param {*} name 
+   * @param {*} password 
+   */
+  async put(id, name, password) {
+    if (!id || !name || !password) return;
+
+    const query = `UPDATE ${this._table} SET name=$1, password=$2 WHERE id=$3`;
+
+    return this._query(query, [ name, password, id ]);
+  }
+
+  /**
    * Deletes a specific user.
    * @param {*} id of the user.
    */
