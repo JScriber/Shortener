@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Shortener/app/services/database/link.database.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\..\..\index.html">All files</a> / <a href="index.html">Shortener/app/services/database</a> link.database.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/16</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/24</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Database from './database';
+&nbsp;
+/**
+ * Class which modifies entities in the link table.
+ */
+class Link extends Database {
+&nbsp;
+<span class="fstat-no" title="function not covered" >  co</span>nstructor() {
+<span class="cstat-no" title="statement not covered" >    super();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    this._table = 'link';</span>
+  }
+&nbsp;
+  /**
+   * Adds a link in the database.
+   * @param {*} link
+   * @param {*} hash
+   */
+<span class="fstat-no" title="function not covered" >  as</span>ync add(link, hash) {
+<span class="cstat-no" title="statement not covered" >    if (!(link &amp;&amp; hash)) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    const query = <span class="cstat-no" title="statement not covered" >`INSERT INTO ${this._table}(hash, url, visits) VALUES ($1, $2, $3)`;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this._query(query, [ hash, link, 0 ]);</span>
+  }
+&nbsp;
+  /**
+   * Get the corresponding link in the database.
+   * @param {*} hash 
+   */
+<span class="fstat-no" title="function not covered" >  as</span>ync get(hash) {
+<span class="cstat-no" title="statement not covered" >    if (!hash) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
+    const query = <span class="cstat-no" title="statement not covered" >`SELECT url FROM ${this._table} WHERE hash=$1`;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const { rows } = <span class="cstat-no" title="statement not covered" >await this._query(query, [ hash ]);</span>
+<span class="cstat-no" title="statement not covered" >      return rows[0].url;</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      return ;</span>
+    }
+  }
+&nbsp;
+  /** Returns all the entries. */
+<span class="fstat-no" title="function not covered" >  as</span>ync getAll() {
+    const query = <span class="cstat-no" title="statement not covered" >`SELECT * FROM ${this._table} ORDER BY visits DESC`;</span>
+    const { rows } = <span class="cstat-no" title="statement not covered" >await this._query(query);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return rows;</span>
+  }
+&nbsp;
+  /**
+   * Adds a visit to the given link.
+   * @param {*} url 
+   */
+<span class="fstat-no" title="function not covered" >  as</span>ync visit(url) {
+<span class="cstat-no" title="statement not covered" >    if (!url) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    const query = <span class="cstat-no" title="statement not covered" >`UPDATE ${this._table} SET visits=visits + 1 WHERE url=$1`;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return this._query(query, [ url ]);</span>
+  }
+&nbsp;
+  /**
+   * Says if the link exist.
+   * @param {*} value - Either url or hash.
+   * @param {'url' | 'hash'} attribute
+   * @returns the link or undefined.
+   */
+<span class="fstat-no" title="function not covered" >  as</span>ync exist(value, attribute) {
+    // Secures parameters.
+<span class="cstat-no" title="statement not covered" >    if (!value || !(attribute === 'url' || attribute === 'hash')) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
+    const query = <span class="cstat-no" title="statement not covered" >`SELECT hash FROM ${this._table} WHERE ${attribute}=$1`;</span>
+    
+    const { rows } = <span class="cstat-no" title="statement not covered" >await this._query(query, [ value ]);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return rows[0];</span>
+  }
+&nbsp;
+  /**
+   * Deletes a link in the database.
+   * @param {*} hash 
+   */
+<span class="fstat-no" title="function not covered" >  as</span>ync delete(hash) {
+<span class="cstat-no" title="statement not covered" >    if (!hash) <span class="cstat-no" title="statement not covered" >return;</span></span>
+&nbsp;
+    const query = <span class="cstat-no" title="statement not covered" >`DELETE FROM ${this._table} WHERE hash=$1;`;</span>
+<span class="cstat-no" title="statement not covered" >    return this._query(query, [ hash ]);</span>
+  }
+}
+&nbsp;
+export default Link;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jan 18 2019 12:21:38 GMT+0100 (GMT+01:00)
+</div>
+</div>
+<script src="..\..\..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\..\..\sorter.js"></script>
+</body>
+</html>
