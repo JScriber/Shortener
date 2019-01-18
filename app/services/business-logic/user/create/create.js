@@ -9,7 +9,7 @@ import { checkCredentials } from '../utils/utils';
  * Encrypts the given password.
  * @param {*} password
  */
-const encrypt = async (password) => {
+export const encrypt = async (password) => {
   const salt = await bcrypt.genSalt(environment.security.hashRound);
   const hash = await bcrypt.hash(password, salt);
 
