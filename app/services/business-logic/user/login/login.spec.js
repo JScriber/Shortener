@@ -2,12 +2,12 @@
 import { getToken, login } from "./login"
 
 describe('genToken advice. ', () => {
-    it("should return token", async () => {
+    it('should return a string', async () => {
         const response = await getToken(1, 'user_name', 'wrnonjkdbhwsn');
 
         expect(typeof response).toBe('string');
     })
-    it("should return same token", async () => {
+    it('should return the same token', async () => {
         const response_A = await getToken(2, 'another_user_name', 'jbdkbldwuvb');
         const response_B = await getToken(2, 'another_user_name', 'jbdkbldwuvb');
 
