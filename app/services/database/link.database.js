@@ -18,7 +18,7 @@ class Link extends Database {
    */
   async add(link, hash) {
     if (!(link && hash)) return;
-    const query = `INSERT INTO ${this._table}(hash, url, visits) VALUES ($1, $2, $3)`;
+    const query = `INSERT INTO ${this._table}(hash, url, visits, created_at) VALUES ($1, $2, $3, NOW())`;
 
     return this._query(query, [ hash, link, 0 ]);
   }

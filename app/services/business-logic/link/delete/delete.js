@@ -1,18 +1,23 @@
+import HTTPStatus from 'http-status-codes';
+
 import Link from '../../../database/link.database';
 
-export const remove = async hash => {
-  // Get the instance of the service.
-  const service = await new Link().connect();
+export const remove = async ({ params }, res) => {
+  const { hash } = params;
 
-  if (await service.exist(hash, 'hash')) {
-    try {
-      await service.delete(hash);
+  if (hash) {
+    // Get the instance of the service.
+    const service = await new Link().connect();
 
-      return true;
-    } catch (e) {
-      return false;
+    if (await service.exist(hash, 'hash')) {
+      try {
+        await service.delete(hash);
+        res.sendStatus(HTTPStatus.NO_CONTENT)
+      } catch (e) {
+        res.sendStatus(HTTPStatus.NOT_FOUND);
+      }
     }
+  } else {
+    res.sendStatus(HTTPStatus.BAD_REQUEST);
   }
-
-  return false;
-};
+}

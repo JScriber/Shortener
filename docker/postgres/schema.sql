@@ -4,6 +4,7 @@ CREATE TABLE public.link(
 	id serial NOT NULL,
 	hash varchar(255),
 	url varchar(255),
+	visits integer,
 	created_at date,
 	id_s_user integer,
 	CONSTRAINT link_id PRIMARY KEY (id)

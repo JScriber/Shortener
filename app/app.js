@@ -22,8 +22,9 @@ server.use('/link', linkRoute);
 server.use('/user', userRoute);
 
 const initialized = () => console.log(`Server initialized on port ${environment.port}`);
-const listener = server.listen(environment.port, initialized);
+const listener = server.listen(environment.port, environment.ip, initialized);
 
 // Exports.
 export default server;
+export const instance = listener;
 export const closeServer = listener.close;

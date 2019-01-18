@@ -1,20 +1,15 @@
 import crypto from 'crypto';
-import os from 'os';
+import HTTPStatus from 'http-status-codes';
 
+import { instance } from '../../../../app';
 import Link from '../../../database/link.database';
 import { environment } from '../../../../../environment';
-import { errors } from '../../../../../errors';
 
-/**
- * Generates a hash with the url and persist it.
- * @param {*} url
- * @return hash
- */
-export const generate = async url => {
-  // Service to manipulate links in database.
-  const service = await new Link().connect();
+export const generate = async ({ body: { url } }, res, next) => {
+  if (url && /http(s)?:\/\/.+\..+/.test(url)) {
+    // Service to manipulate links in database.
+    const service = await new Link().connect();
 
-  if (/http(s)?:\/\/.+\..+/.test(url)) {
     // Hashes url.
     let hash = crypto.createHash('md5')
       .update(url)
@@ -27,15 +22,15 @@ export const generate = async url => {
       try {
         await service.add(url, hash);
       } catch(e) {
-        throw errors.persistEntity;
+        next(e);
       }
     } else {
       hash = link.hash;
     }
 
-    return hash;
+    res.status(HTTPStatus.CREATED).json(fullURL(hash));
   } else {
-    throw errors.incorrectUrl;
+    res.sendStatus(HTTPStatus.BAD_REQUEST);
   }
 }
 
@@ -45,9 +40,7 @@ export const generate = async url => {
  * @returns address to visit.
  */
 export const fullURL = hash => {
-  // TODO: Improve for real usage on prod server.
-  const ip = os.networkInterfaces()['lo'][0].address || 'localhost';
-
-  // TODO: CHange.
+  const ip = instance.address().address || environment.ip;
+  
   return `http://${ip}:${environment.port}/link/${hash}`;
 }
